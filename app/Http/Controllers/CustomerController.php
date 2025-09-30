@@ -10,9 +10,21 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
+
+        if ($request->has('keyword')) {
+           $customers = Customer::where('name', 'LIKE', "%{$request->keyword}%")
+               ->orWhere('email', 'LIKE', "%{$request->keyword}%")
+               ->orWhere('phone', 'LIKE', "%{$request->keyword}%")
+               ->orWhere('last_name', 'LIKE', "%{$request->keyword}%")
+               ->orWhere('card_number', 'LIKE', "%{$request->keyword}%")
+               ->get();
+
+        } else {
+            $customers = Customer::all();
+        }
+
         return view('customer.index',['customers' => $customers]);
     }
 
@@ -42,6 +54,7 @@ class CustomerController extends Controller
 
       ]);
 
+
     }
 
     /**
@@ -49,7 +62,7 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::findOrFail($id);
         return view('customer.show',['customer' => $customer]);
     }
 
@@ -58,7 +71,7 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::findOrFail($id);
         return view('customer.edit',['customer' => $customer]);
     }
 
@@ -67,7 +80,9 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-     dd($id);
+        $customer = Customer::findOrFail($id);
+        $customer->update($request->all());
+        return back();
     }
 
     /**
