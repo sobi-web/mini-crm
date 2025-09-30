@@ -13,6 +13,7 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
 
+
         if ($request->has('keyword')) {
            $customers = Customer::where('name', 'LIKE', "%{$request->keyword}%")
                ->orWhere('email', 'LIKE', "%{$request->keyword}%")
@@ -22,10 +23,14 @@ class CustomerController extends Controller
                ->get();
 
         } else {
-            $customers = Customer::all();
+            $customers = Customer::query();
         }
-
-        return view('customer.index',['customers' => $customers]);
+         if ($request->has('order_by')) {
+             $customers = Customer::orderBy('id', $request->order_by ?? 'desc');
+         }
+        return view('customer.index',[
+            'customers' => $customers->get()
+        ]);
     }
 
     /**

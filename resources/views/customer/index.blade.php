@@ -23,9 +23,9 @@
                     <div class="col-md-2">
 
                         <div class="input-group mb-3">
-                            <select class="form-select" name="" id="">
-                                <option value="">Newest to Old</option>
-                                <option value="">Old to Newest</option>
+                            <select class="form-select" name="order_by" >
+                                <option value="desc">Newest to Old</option>
+                                <option value="asc">Old to Newest</option>
                             </select>
                         </div>
                     </div>
