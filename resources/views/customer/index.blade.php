@@ -24,8 +24,8 @@
 
                         <div class="input-group mb-3">
                             <select class="form-select" name="order_by" >
-                                <option value="desc">Newest to Old</option>
-                                <option value="asc">Old to Newest</option>
+                                <option value="desc" @selected(request()->order_by === 'desc')>Newest to Old</option>
+                                <option value="asc" @selected(request()->order_by === 'asc')>Old to Newest</option>
                             </select>
                         </div>
                     </div>
