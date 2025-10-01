@@ -14,23 +14,9 @@ class CustomerController extends Controller
     {
 
 
-        if ($request->has('keyword')) {
-           $customers = Customer::where('name', 'LIKE', "%{$request->keyword}%")
-               ->orWhere('email', 'LIKE', "%{$request->keyword}%")
-               ->orWhere('phone', 'LIKE', "%{$request->keyword}%")
-               ->orWhere('last_name', 'LIKE', "%{$request->keyword}%")
-               ->orWhere('card_number', 'LIKE', "%{$request->keyword}%")
-               ->get();
 
-        } else {
-            $customers = Customer::query();
-        }
-         if ($request->has('order_by')) {
-             $customers = Customer::orderBy('id', $request->order_by ?? 'desc');
-         }
         return view('customer.index',[
-            'customers' => $customers->get()
-        ]);
+            'customers' => Customer::fillter($request->keyword , $request->order_by)]);
     }
 
     /**
@@ -38,7 +24,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        return view('customer.create' , [
+            'customer' => new Customer()
+        ]);
     }
 
     /**
@@ -46,6 +34,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+
 
 
         Customer::create([
@@ -95,6 +84,10 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+
+        $customer->delete();
+
+        return back();
     }
 }
