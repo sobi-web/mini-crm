@@ -9,6 +9,7 @@ Route::get('/' , function (){
    return  redirect()->route('customer.index');
 });
 
+//Route::resource('/customer/trashed' , TrashedCustomerController::class)->only(['index' , 'destroy' , 'restore'])->names('customer.trashed')->;
 
 
 Route::get('/customer/trashed', [TrashedCustomerController::class, 'index'])->name('customer.trashed.index');
@@ -16,3 +17,4 @@ Route::delete('/customer/trashed/{id}', [TrashedCustomerController::class, 'dest
 Route::patch('/customer/trashed/{id}', [TrashedCustomerController::class, 'restore'])->name('customer.trashed.restore');
 
 Route::resource('customer' ,CustomerController::class);
+

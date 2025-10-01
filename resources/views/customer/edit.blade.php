@@ -6,6 +6,10 @@
             <h3>Edit Customer</h3>
             <div class="card">
                 <div class="card-header">
+
+                    @session('success')
+                          <p class="alert alert-success">{{$value}}</p>
+                    @endsession
                     <div class="row">
                         <div class="col-md-2">
                             <a href="{{ route('customer.index') }}" class="btn"

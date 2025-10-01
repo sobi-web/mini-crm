@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('last_name');
-            $table->integer('birth_date');
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->string('card_number');
+            $table->string('card_number')->nullable();
+            $table->string('about')->nullable();
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });

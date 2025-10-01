@@ -21,10 +21,9 @@ class CustomerFactory extends Factory
         return [
             'name' => fake()->name(),
             'last_name' => fake()->lastName(),
-            'birth_date' => fake()->randomElement([1900 , 2000]),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->phoneNumber(),
-            'card_number' => fake()->randomElement(['null' , fake()->creditCardNumber()]) ,
+            'card_number' => fake()->randomElement([null , fake()->creditCardNumber()]) ,
             'about' => fake()->paragraph(1)
         ];
     }
